@@ -17,6 +17,10 @@ sentencepiece
 
 transformers
 
+**How to pretrain or finetune a Composer's Assistant model**
+
+See "instructions for pretraining.txt" and "instructions for finetuning.txt"
+
 **Pretrained models**
 
 See releases for pretrained models.
