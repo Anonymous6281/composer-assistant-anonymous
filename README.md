@@ -1,5 +1,5 @@
 # composer-assistant-anonymous
-Source code for training and testing Composer's Assistant neural net models.
+Source code for training and evaluating Composer's Assistant neural net models. Includes test set and pretrained models.
 
 **Requirements**
 
@@ -24,3 +24,7 @@ See "instructions for pretraining.txt" and "instructions for finetuning.txt"
 **Pretrained models**
 
 See releases for pretrained models.
+
+**Test set**
+
+See releases for test set.
