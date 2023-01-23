@@ -1,0 +1,19 @@
+1) Open constants.py for editing. Edit the paths in the NEURAL NET TRAINING SETTINGS section. Also, set UNJOINED = True to train a "basic vocabulary" version of the model, or set UNJOINED = False to train a "joined-vocabulary" (SentencePiece-based) version of the model. You may also edit the other values in this file to your liking.
+
+2) Put your midi files in the folders PATH_TO_TRAIN_MIDI, PATH_TO_VAL_MIDI, and PATH_TO_TEST_MIDI, as you defined in constants.py, as appropriate. If all you want to do is train a model (without performing any statistical analysis on it), put all of your midi files in PATH_TO_TRAIN_MIDI and just add a copy of any midi file you like to the other paths.
+
+3) Run preprocess_midi.py. This will create large files in the folders PATH_TO_PROCESSED_TRAIN_MIDI, PATH_TO_PROCESSED_VAL_MIDI, and PATH_TO_PROCESSED_TEST_MIDI. Expect these files to consume about 2.5x the disk space as your midi files take. This will use all CPU cores available, and will probably take a while. For instance, each core on an i5-6600 can process about 5000 midi files per hour. You can remove the original midi files after this.
+
+4) If training a joined-vocabulary model, run spm_create_train_data.py. (Otherwise, skip this step.) This will create four training files for SentencePiece in this directory. The size of these files is determined by the value of SPM_NUM_EXAMPLES in constants.py. Using the default value will create files totaling a bit under 2 GB in size.
+
+5) If training a joined-vocabulary model, run spm_train_models.py. (Otherwise, skip this step.) This will create Sentencepiece models in this directory (each typically < 2 MB in size). Do not delete these. You may, however, now delete the training files created by the previous step.
+
+6) Edit and run build_pretrain_data.py. You will need to build the data for epoch n before you can pretrain on epoch n. You can build the data for epoch 0, then pretrain on epoch 0 while building the data for epoch 1, then pretrain on epoch 1, etc. 
+
+In case you are curious about why you have to do this, we have chosen to separate the task of building pretrain data from the task of pretraining (rather than generating training examples on the fly during training) as a form of parallelism: Generating training examples is a semi-expensive CPU-only operation, we have found that this separation speeds up GPU training significantly, and we are personally far more GPU-limited than we are CPU-limited. In practice, we used one machine to build the pretrain data for epoch n+1 while the model trained on epoch n on another machine.
+
+7) Edit the top area in pretrain_model.py, then run pretrain_model.py
+
+8) Continue alternating between build_pretrain_data.py and pretrain_model.py until done.
+
+9) At any point in the process after pretraining epoch n has completed, you may run validate_pretrained_model.py (after editing the top area of the file). This will create a "metrics" folder inside of each pretrained checkpoint folder with the validation results (loss and/or accuracy) for that model.

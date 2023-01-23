@@ -1,0 +1,15 @@
+1) Edit the paths in constants.py. Place your model checkpoint(s) in the path PATH_TO_MODELS you define in constants.py.
+
+
+If you are using the Composer's Assistant Test Dataset, place the nine large text files from that dataset in PATH_TO_TEMP_FILES (from constants.py), and skip to step 5 below. If you are using a custom set of midi files instead, continue with step 2.
+
+
+2) Put your midi files in the folders PATH_TO_VAL_MIDI and PATH_TO_TEST_MIDI, as you defined in constants.py (as appropriate).
+
+3) Run preprocess_midi.py. This will create large files in the folders PATH_TO_PROCESSED_VAL_MIDI and PATH_TO_PROCESSED_TEST_MIDI. Expect these files to consume about 2.5x the disk space as your midi files take. This will use all CPU cores available, and may take a while. For instance, each core on an i5-6600 can process about 5000 midi files per hour. You can remove the original midi files after this.
+
+4) Run build_val_and_test_finetune_data.py. This will create data for validation in the folder PATH_TO_TEMP_FILES (from constants.py).
+
+5) Edit the top and bottom areas of the file validate_finetuned_model.py, and run that. This will create metrics folders inside of each finetuned checkpoint folder in the EPOCHS_TO_ANALYZE list. This may take a while to complete.
+
+Note that for the paper, we used a batch size of 25 for greedy decoding, and a batch size of 6 with DO_SAMPLE = 4 for nucleus sampling. We obtained our results on a 12 GB P100 video card. We have observed small differences in outputs when our code is run on different hardware, usually due to differences in output logits starting around the 6th decimal place. As far as we know, there is no way to avoid this (as it is a hardware limitation), so if you attempt to replicate our results, your results may be slightly different from those in the paper.

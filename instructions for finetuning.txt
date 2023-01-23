@@ -1,0 +1,9 @@
+After pretraining your model using the instructions in "instructions for pretraining.txt":
+
+1) Edit and run build_finetune_train_data.py. You will need to build the data for epoch n before you can finetune on epoch n. You can build the data for epoch 0, then finetune on epoch 0 while building the data for epoch 1, then finetune on epoch 1, etc. 
+
+2) Edit the top area in finetune_model.py, then run finetune_model.py.
+
+3) Continue alternating between build_finetune_train_data.py and finetune_model.py until done.
+
+4) If you would like to validate your finetuned model, first run build_val_and_test_finetune_data.py. This will create data for validation in the folder PATH_TO_TEMP_FILES. Once you've done that, at any point in the process after finetuning epoch n has completed, you may run validate_finetuned_model.py (after editing the top and bottom areas of the file). This will create metrics folders inside of each finetuned checkpoint folder with the validation results for that model.
