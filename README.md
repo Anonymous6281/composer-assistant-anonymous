@@ -21,7 +21,7 @@ transformers
 
 **How to train a Composer's Assistant model from scratch**
 
-Follow the instructions in "instructions for pretraining.txt" and then "instructions for finetuning.txt"
+Download all the code (above, use Code > Download ZIP) and unzip to a folder anywhere on your computer. Then follow the instructions in "instructions for pretraining.txt" and then "instructions for finetuning.txt"
 
 **Test set**
 
