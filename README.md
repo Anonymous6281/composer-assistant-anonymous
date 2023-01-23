@@ -1,6 +1,8 @@
 # composer-assistant-anonymous
 Source code for training and evaluating Composer's Assistant neural net models. For the test set for our paper, see the releases.
 
+Please watch this video for audio examples and to learn how Composer's Assistant works: https://www.youtube.com/watch?v=S9KdNztChx0
+
 **Requirements**
 
 You will need to have python 3.6+ as well as the following python packages installed to run this code:
